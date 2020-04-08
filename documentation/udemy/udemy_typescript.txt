@@ -1,0 +1,40 @@
+Typescript
+- Open source programming language
+- Developed and mainted by Microsoft
+- A superset of Javascript (like C++ to C)
+- Brings static typing to Javascript
+
+    www.typescriptlang.org/play
+
+    Javsacript:
+
+        let a = 1;
+        typeof a // output "number"
+
+        a = 'one'
+        typeof a // output "string"
+
+        change the type is not a problem but sometimes it could generate unexpeted results
+
+    Typescript:
+        let a :number = 1;
+        a = 'one' // Error X
+
+
+- Typescript has 12 basic typescriptlang
+    - any
+    - boolean
+    - number
+    - string
+    - array    
+    - tuple - [string, number, boolean, string]
+    - enum - Outcome {Win, Lose, Draw} not recomendable
+    - void - a function doesn't return
+    - null - something doesn't exist
+    - undefined - unassigned variable
+    - never - function that never returns
+    - object - non-primitive types
+
+- The browser only reads Javascript
+    - typescript -> compiles to -> javascript 
+

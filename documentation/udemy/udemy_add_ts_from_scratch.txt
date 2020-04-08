@@ -1,0 +1,16 @@
+create a folder [name]
+go to the folder
+    >npm init -y
+    // -y say yes all questions
+create a folder src
+create a file called index.tsx
+create index.html webpack.config.js .babelsrc outside of src
+
+in index.html
+    html:5
+    <body>
+        <div id="app-root"></div>
+        <script src="bundle.js"></script>
+    </body>
+
+// booring! ;o 

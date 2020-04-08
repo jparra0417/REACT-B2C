@@ -1,0 +1,5 @@
+export enum EAction {
+  MODIFY_CART_ACTIVE,
+  MODIFY_LOOK_UP,
+  ADD_CART_PRODUCT,
+}

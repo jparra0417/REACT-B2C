@@ -1,0 +1,16 @@
+you hve to have nodejs and npm installed in the computer
+> node -v
+> npm i create-react-app
+
+
+
+Normally a react project is created by executing :
+    > npx create-react-app [name]
+typescript
+    > npx create-react-app [name] --typescript
+
+After that go to the folder created
+    > npm i typescript @types/node @types/react @types/react-dom @types/react @types/react-router-dom
+
+If the App.js is still alive, Change the App.js to App.tsx only if it is necessary and execute:
+    > npm start

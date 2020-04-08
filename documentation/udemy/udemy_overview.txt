@@ -1,0 +1,7 @@
+Visua studio code
+install snippet 
+    ES7 React 
+    Night owl
+    Atom  key map
+    Bookmarks
+    Bracket pair colorizer 2
