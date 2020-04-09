@@ -7,12 +7,12 @@ const ToggleCart = () => {
   /** global */
   const { state, dispatch } = useContext<IState | any>(Store);
   /** local */
-  const [length, setLength] = useState(state.cart.listProduct.length);
+  const [amount, setAmount] = useState(state.cart.amount);
 
-  /** length  */
+  /** amount  */
   useEffect(() => {
-    setLength(state.cart.listProduct.length);
-  }, [state.cart.listProduct.length]);
+    setAmount(state.cart.amount);
+  }, [state.cart.amount]);
 
   /** dispatch cart active */
   const dispatchCartActive = () => {
@@ -25,7 +25,7 @@ const ToggleCart = () => {
   return (
     <div className="b2c-toggle-cart">
       <button type="button" onClick={() => dispatchCartActive()}>
-        {length}
+        {amount}
       </button>
     </div>
   );

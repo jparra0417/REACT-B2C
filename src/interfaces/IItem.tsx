@@ -6,5 +6,5 @@ export default interface IItem {
   totalValue: number;
   unitValue: number;
   amount: number;
-  urlImage: string;
+  urlImage: string;    
 }

@@ -6,14 +6,12 @@ const Cart = () => {
   /** global */
   const { state } = useContext<IState | any>(Store);
 
-  useEffect(() => {}, [state.cart]);
+  useEffect(() => {
+    console.log("Cart", state.cart);
+  }, [state.cart]);
 
   return (
-    <div
-      className={`b2c-cart ${state.cart.active ? "active" : ""}`}
-    >
-      :D
-    </div>
+    <div className={`b2c-cart ${state.cart.active ? "active" : ""}`}>:D</div>
   );
 };
 

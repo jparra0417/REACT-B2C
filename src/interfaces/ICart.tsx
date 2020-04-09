@@ -5,4 +5,5 @@ export default interface ICart {
   taxValue: number;
   totalValue: number;
   active : boolean;
+  amount: number
 }
