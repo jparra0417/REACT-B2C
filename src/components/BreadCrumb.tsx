@@ -1,5 +1,5 @@
 import React, { useState, useEffect, Fragment } from "react";
-import { IBreadCrumb } from "../interfaces/IBreadcrumb";
+import { IBreadCrumb } from "../interfaces/IBreadCrumb";
 import { Link } from "react-router-dom";
 
 const BreadCrumb = (props) => {

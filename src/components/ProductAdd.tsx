@@ -2,17 +2,21 @@ import React, { useState, useEffect, useContext } from "react";
 import IProduct from "../interfaces/IProduct";
 import IState from "../interfaces/IState";
 import { Store } from "../Store";
-import { EAction } from "../enums/EAction";
+import HocProduct from "./HocProduct";
 
 const ProductAdd = (props) => {
   /** global */
-  const { dispatch } = useContext<IState | any>(Store);
+  const { state, dispatch } = useContext<IState | any>(Store);
   /** local */
   const [product, setProduct] = useState<IProduct>(props.product);
 
-  useEffect(() => {
-    setProduct(props.product);
-  }, [props.product]);
+  useEffect(() => {}, [state.lang]);
+
+  const reset = () => {
+    setProduct((prevProduct: IProduct) => {
+      return calculate(prevProduct, 1);
+    });
+  };
 
   const decrement = () => {
     setProduct((prevProduct: IProduct) => {
@@ -22,11 +26,11 @@ const ProductAdd = (props) => {
       );
     });
   };
-  const dispatchProduct = () => {
-    dispatch({
-      type: EAction.ADD_CART_PRODUCT,
-      payload: product,
-    });
+
+  const add = () => {
+    console.log('props', props);
+    props.addProduct(product,product.amount, dispatch);
+    reset();
   };
 
   const increment = () => {
@@ -52,11 +56,12 @@ const ProductAdd = (props) => {
       <button type="button" onClick={() => increment()}>
         +
       </button>
-      <button type="button" onClick={() => dispatchProduct()}>
-        Add to cart {product.totalValue.toLocaleString("es")}
+      $ {product.totalValue.toLocaleString(state.lang)}
+      <button type="button" onClick={() => add()}>
+        Add to cart
       </button>
     </div>
   );
 };
 
-export default ProductAdd;
+export default HocProduct(ProductAdd);

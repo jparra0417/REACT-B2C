@@ -16,8 +16,7 @@ const ListProduct = (props) => {
   const [listProduct, setListProduct] = useState<IProduct[]>([]);
 
   useEffect(() => {
-
-    console.log("List product!", state.cart.amount)
+    console.log("Change by lookup")
     /** function get total list Item */
     const getTotalListProduct = (): IProduct[] => {
       let listProduct: IProduct[] = [];
@@ -71,7 +70,7 @@ const ListProduct = (props) => {
         );
       });
     setListProduct(listProduct);
-  }, [state.lookUp, state.cart.amount]);
+  }, [state.lookUp, state.lang]);  
 
   return (
     <div className="b2c-list-item">
@@ -82,7 +81,7 @@ const ListProduct = (props) => {
               <div className="b2c-product-name">{product.item.name}</div>
               <div className="b2c-product-type">{product.item.type}</div>
               <div className="b2c-product-total-value">
-                {product.item.totalValue.toLocaleString("es")}
+                {product.item.totalValue.toLocaleString(state.lang)}
               </div>
               <ProductAdd product={product} />
               <Link to={`/product/${product.item.id}`}>Check</Link>

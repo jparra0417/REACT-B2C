@@ -25,6 +25,7 @@ const initialState: IState = {
     length: 10,
     page: 0,
   },
+  lang: "en",
 };
 
 /** store */
@@ -40,8 +41,36 @@ const addProduct = (cart: ICart, product: IProduct): ICart => {
 
   if (filteredProduct && filteredProduct.length) {
     filteredProduct[0].amount += product.amount;
-    filteredProduct[0].totalValue += product.totalValue;
-  } else listProduct.push(product);
+    filteredProduct[0].totalValue =
+      product.item.totalValue * filteredProduct[0].amount;
+  } else
+    listProduct.push({
+      ...product,
+      amount: product.amount,
+      totalValue: product.unitValue * product.amount,
+    });
+
+  return calculateCart(cart, listProduct);
+};
+
+const removeProduct = (cart: ICart, product: IProduct): ICart => {
+  let listProduct = cart.listProduct;
+  let filteredProduct = listProduct.filter(
+    (p: IProduct) => p.item.id === product.item.id
+  );
+
+  if (filteredProduct && filteredProduct.length) {
+    filteredProduct[0].amount -= product.amount;
+    // if > 0 recalculate the total value
+    if (filteredProduct[0].amount > 0)
+      filteredProduct[0].totalValue =
+        product.unitValue * filteredProduct[0].amount;
+    // otherwise, remove from the list
+    else
+      listProduct = listProduct.filter(
+        (p: IProduct) => p.item.id !== product.item.id
+      );
+  }
 
   return calculateCart(cart, listProduct);
 };
@@ -70,6 +99,8 @@ const reducer = (state: IState, action: IAction) => {
       return { ...state, lookUp: action.payload };
     case EAction.ADD_CART_PRODUCT:
       return { ...state, cart: addProduct(state.cart, action.payload) };
+    case EAction.REMOVE_CART_PRODUCT:
+      return { ...state, cart: removeProduct(state.cart, action.payload) };
     case EAction.MODIFY_CART_ACTIVE:
       return { ...state, cart: { ...state.cart, active: action.payload } };
     default:

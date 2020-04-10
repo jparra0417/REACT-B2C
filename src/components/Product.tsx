@@ -1,11 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useParams, Redirect } from "react-router-dom";
 import IProduct from "../interfaces/IProduct";
 import { EStorage } from "../enums/EStorage";
 import BreadCrumb from "./BreadCrumb";
 import ProductAdd from "./ProductAdd";
+import { Store } from "../Store";
+import IState from "../interfaces/IState";
 
 const Product = () => {
+  const {state} = useContext<IState | any >(Store);
   /**  params */
   let { id } = useParams();
 
@@ -25,7 +28,7 @@ const Product = () => {
         if (listProduct && listProduct.length) setProduct(listProduct[0]);
         setReady(true);
       }
-  }, [ready, id]);
+  }, [ready, id, state.lang]);
 
   if (ready)
     if (product)
@@ -43,13 +46,13 @@ const Product = () => {
           <div className="b2c-product-name">{product.item.name}</div>
           <div className="b2c-product-type">{product.item.type}</div>
           <div className="b2c-product-tax-value">
-            {product.item.taxValue.toLocaleString("es")}
+            {product.item.taxValue.toLocaleString(state.lang)}
           </div>
           <div className="b2c-product-unit-value">
-            {product.item.unitValue.toLocaleString("es")}
+            {product.item.unitValue.toLocaleString(state.lang)}
           </div>
           <div className="b2c-product-total-value">
-            {product.item.totalValue.toLocaleString("es")}
+            {product.item.totalValue.toLocaleString(state.lang)}
           </div>
           <ProductAdd product={product} />
         </div>
