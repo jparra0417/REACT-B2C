@@ -1,13 +1,17 @@
 import React from "react";
-import LookUp from './LookUp'
+import Search from './Search'
 import ToggleCart from './ToggleCart'
+// import Pager from "./Pager";
+import Logo from "./Logo";
 
 
 const Header = () => {   
 
     return (
         <div className="b2c-header">
-            <LookUp/>
+            <Logo />
+            <Search/>
+            {/* <Pager /> */}
             <ToggleCart />            
         </div>
     )

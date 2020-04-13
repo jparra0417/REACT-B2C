@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import IState from "../interfaces/IState";
 import { Store } from "../Store";
 import { EAction } from "../enums/EAction";
@@ -6,13 +6,9 @@ import { EAction } from "../enums/EAction";
 const ToggleCart = () => {
   /** global */
   const { state, dispatch } = useContext<IState | any>(Store);
-  /** local */
-  const [amount, setAmount] = useState(state.cart.amount);
 
   /** amount  */
-  useEffect(() => {
-    setAmount(state.cart.amount);
-  }, [state.cart.amount]);
+  useEffect(() => {}, [state.cart.amount, state.lang]);
 
   /** dispatch cart active */
   const dispatchCartActive = () => {
@@ -23,11 +19,16 @@ const ToggleCart = () => {
   };
 
   return (
-    <div className="b2c-toggle-cart">
-      <button type="button" onClick={() => dispatchCartActive()}>
-        {amount}
-      </button>
-    </div>
+    <button
+      className="b2c-toggle-cart"
+      type="button"
+      onClick={() => dispatchCartActive()}
+    >
+      <i className="fa fa-shopping-cart"></i>
+      <div className="b2c-toggle-cart-amount">
+        {state.cart.amount.toLocaleString(state.lang)}
+      </div>
+    </button>
   );
 };
 

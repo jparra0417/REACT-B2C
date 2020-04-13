@@ -28,8 +28,8 @@ const ProductAdd = (props) => {
   };
 
   const add = () => {
-    console.log('props', props);
-    props.addProduct(product,product.amount, dispatch);
+    console.log("props", props);
+    props.addProduct(product, product.amount, dispatch);
     reset();
   };
 
@@ -43,24 +43,35 @@ const ProductAdd = (props) => {
     return {
       ...prevProduct,
       amount: amount,
-      totalValue: amount * prevProduct.unitValue,
+      totalValue: amount * prevProduct.item.totalValue,
     };
   };
 
   return (
-    <div className="b2c-product-add">
-      <button type="button" onClick={() => decrement()}>
-        -
-      </button>
-      {product.amount}
-      <button type="button" onClick={() => increment()}>
-        +
-      </button>
-      $ {product.totalValue.toLocaleString(state.lang)}
-      <button type="button" onClick={() => add()}>
-        Add to cart
-      </button>
-    </div>
+    <>
+      <div className="b2c-product-total-value">
+        <sup>$</sup>
+        <span className="value">
+          {product.totalValue.toLocaleString(state.lang)}
+        </span>
+      </div>
+      <div className="b2c-product-buttons">
+        <div className="b2c-product-amount-buttons">
+          <button type="button" onClick={() => decrement()}>
+            <span className="fa fa-minus"></span>
+          </button>
+          <span className="b2c-product-amount">{product.amount}</span>
+          <button type="button" onClick={() => increment()}>
+            <span className="fa fa-plus"></span>
+          </button>
+        </div>
+        <div className="b2c-product-add-button">
+          <button type="button" onClick={() => add()}>
+            Add <span className="fa fa-cart-plus"></span>
+          </button>
+        </div>
+      </div>
+    </>
   );
 };
 

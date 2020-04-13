@@ -22,7 +22,10 @@ const initialState: IState = {
       { property: "type", sort: ESort.NA },
       { property: "totalValue", sort: ESort.NA },
     ],
-    length: 10,
+  },
+  pager: {
+    length: 0,
+    limit: 10,
     page: 0,
   },
   lang: "en",
@@ -47,7 +50,7 @@ const addProduct = (cart: ICart, product: IProduct): ICart => {
     listProduct.push({
       ...product,
       amount: product.amount,
-      totalValue: product.unitValue * product.amount,
+      totalValue: product.item.totalValue * product.amount,
     });
 
   return calculateCart(cart, listProduct);
@@ -64,7 +67,7 @@ const removeProduct = (cart: ICart, product: IProduct): ICart => {
     // if > 0 recalculate the total value
     if (filteredProduct[0].amount > 0)
       filteredProduct[0].totalValue =
-        product.unitValue * filteredProduct[0].amount;
+        product.item.totalValue * filteredProduct[0].amount;
     // otherwise, remove from the list
     else
       listProduct = listProduct.filter(
@@ -95,12 +98,24 @@ const calculateCart = (cart: ICart, listProduct: IProduct[]): ICart => {
 const reducer = (state: IState, action: IAction) => {
   // console.log("state", state, "action", action);
   switch (action.type) {
-    case EAction.MODIFY_LOOK_UP:
-      return { ...state, lookUp: action.payload };
+    case EAction.MODIFY_LOOK_UP_SEARCH:
+      return { ...state, lookUp: { ...state.lookUp, search: action.payload } };
     case EAction.ADD_CART_PRODUCT:
       return { ...state, cart: addProduct(state.cart, action.payload) };
     case EAction.REMOVE_CART_PRODUCT:
       return { ...state, cart: removeProduct(state.cart, action.payload) };
+    case EAction.MODIFY_PAGER_LENGTH:
+      return {
+        ...state,
+        pager: { ...state.pager, length: action.payload, page: 0 },
+      };
+    case EAction.MODIFY_PAGER_LIMIT:
+      return {
+        ...state,
+        pager: { ...state.pager, limit: action.payload, page: 0 },
+      };
+    case EAction.MODIFY_PAGER_PAGE:
+      return { ...state, pager: { ...state.pager, page: action.payload } };
     case EAction.MODIFY_CART_ACTIVE:
       return { ...state, cart: { ...state.cart, active: action.payload } };
     default:

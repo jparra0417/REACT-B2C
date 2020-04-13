@@ -4,24 +4,52 @@ import { Store } from "../Store";
 import UtilString from "../utils/UtilString";
 import * as Faker from "faker";
 import { EStorage } from "../enums/EStorage";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import IProduct from "../interfaces/IProduct";
 import ProductAdd from "./ProductAdd";
+import { EAction } from "../enums/EAction";
+import Pager from "./Pager";
 
 const ListProduct = (props) => {
   /** global */
-  const { state } = useContext<IState | any>(Store);
+  const { state, dispatch } = useContext<IState | any>(Store);
 
   /** local */
+  const [filteredListProduct, setFilteredListProduct] = useState<IProduct[]>(
+    []
+  );
   const [listProduct, setListProduct] = useState<IProduct[]>([]);
+  const [ready, setReady] = useState<boolean>(false);
 
+  /** use effect when the ready  */
   useEffect(() => {
-    console.log("Change by lookup")
-    /** function get total list Item */
+    setReady(false);
+    // function get total list Item
     const getTotalListProduct = (): IProduct[] => {
-      let listProduct: IProduct[] = [];
+      let _filteredListProduct: IProduct[] = [];
       if (!localStorage.getItem(EStorage.B2C_LIST_PRODUCT)) {
-        for (let index = 0; index < 30; index++) {
+        const img = [
+          "viadeo-square",
+          "car",
+          "pied-piper",
+          "first-order",
+          "yoast",
+          "ticket",
+          "font-awesome",
+          "handshake-o",
+          "envelope-open-o",
+          "linode",
+          "birthday-cake",
+          "recycle",
+          "binoculars",
+          "spinner",
+          "user-circle",
+          "newspaper-o",
+          "history",
+          "id-badge",
+          "drivers-license",
+        ];
+        for (let index = 0; index < 50; index++) {
           const taxValue = Faker.commerce.price() / 5;
           const unitValue = Faker.commerce.price() / 2;
           const totalValue = taxValue + unitValue;
@@ -35,64 +63,85 @@ const ListProduct = (props) => {
               unitValue: unitValue,
               totalValue: totalValue,
               amount: 1,
-              urlImage: Faker.image.imageUrl(),
+              urlImage: img[Math.floor(Math.random() * img.length)],
             },
             taxValue: taxValue,
-            totalValue: unitValue,
-            unitValue: totalValue,
+            totalValue: totalValue,
+            unitValue: unitValue,
             amount: 1,
           };
 
-          listProduct.push(product);
+          _filteredListProduct.push(product);
         }
         localStorage.setItem(
           EStorage.B2C_LIST_PRODUCT,
-          JSON.stringify(listProduct)
+          JSON.stringify(_filteredListProduct)
         );
-        return listProduct;
+        return _filteredListProduct;
       }
       return JSON.parse(localStorage.getItem(EStorage.B2C_LIST_PRODUCT));
     };
 
-    /** get total list item */
+    // get total list item
     const totalListProduct = getTotalListProduct();
-    let listProduct: IProduct[] = totalListProduct;
-    /** pipeline */
+    let _filteredListProduct: IProduct[] = totalListProduct;
+    // pipeline
+    // search
     if (state.lookUp.search.length)
-      listProduct = listProduct.filter((product: IProduct) => {
-        return (
-          product.item.name
-            .toLowerCase()
-            .indexOf(state.lookUp.search.toLowerCase()) >= 0 ||
-          product.item.type
-            .toLowerCase()
-            .indexOf(state.lookUp.search.toLowerCase()) >= 0
-        );
-      });
-    setListProduct(listProduct);
-  }, [state.lookUp, state.lang]);  
-
-  return (
-    <div className="b2c-list-item">
-      {listProduct.length ? (
-        listProduct.map((product: IProduct) => {
+      _filteredListProduct = _filteredListProduct.filter(
+        (product: IProduct) => {
           return (
-            <div className="b2c-product" key={product.item.id}>
-              <div className="b2c-product-name">{product.item.name}</div>
-              <div className="b2c-product-type">{product.item.type}</div>
-              <div className="b2c-product-total-value">
-                {product.item.totalValue.toLocaleString(state.lang)}
-              </div>
-              <ProductAdd product={product} />
-              <Link to={`/product/${product.item.id}`}>Check</Link>
-            </div>
+            product.item.name
+              .toLowerCase()
+              .indexOf(state.lookUp.search.toLowerCase()) >= 0 ||
+            product.item.type
+              .toLowerCase()
+              .indexOf(state.lookUp.search.toLowerCase()) >= 0
           );
-        })
-      ) : (
-        <div className="b2c-no-results">Not found</div>
-      )}
-    </div>
-  );
+        }
+      );
+
+    // limit
+    dispatch({
+      type: EAction.MODIFY_PAGER_LENGTH,
+      payload: _filteredListProduct.length,
+    });
+
+    setFilteredListProduct(_filteredListProduct);
+  }, [state.lookUp, dispatch]);
+
+  useEffect(() => {
+    let start = state.pager.page * state.pager.limit;
+    setListProduct(filteredListProduct.slice(start, start + state.pager.limit));
+    setReady(true);
+  }, [state.pager.limit, state.pager.page, filteredListProduct]);
+
+  if (ready)
+    return (
+      <>
+        <div className="b2c-list-product">
+          {listProduct.length ? (
+            listProduct.map((product: IProduct) => {
+              return (
+                <div className="b2c-item" key={product.item.id}>
+                  <div className="b2c-item-image">
+                    <span className={`fa fa-${product.item.urlImage}`}></span>
+                  </div>
+                  <div className="b2c-item-name">{product.item.name}</div>
+                  <div className="b2c-item-type">{product.item.type}</div>
+                  <ProductAdd product={product} />
+                  {/* <Link to={`/product/${product.item.id}`}>Check</Link> */}
+                </div>
+              );
+            })
+          ) : (
+            <div className="b2c-no-results">Not found</div>
+          )}
+        </div>
+        <Pager />
+      </>
+    );
+  else return <div>Cargando...</div>;
 };
 
 export default ListProduct;
