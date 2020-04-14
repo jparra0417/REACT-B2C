@@ -27,10 +27,10 @@ body
 .b2c-logo
     // display: none
     align-self: flex-start
-    margin: 0 .5rem 0 0
+    margin: .3rem .5rem
     line-height: 1
     color: $blue
-    font-size: .5rem            
+    font-size: .7rem            
     font-variant: small-caps
     span
         font-size: 2rem
@@ -38,7 +38,6 @@ body
 
 
 .b2c-toggle-cart
-    height: 100%
     border: 0
     margin: 0
     padding: 0
@@ -48,15 +47,14 @@ body
     background-color: $green
     font-size: 1rem
     color: $white
-    padding: .5rem 1rem
+    padding: .3rem 1rem
     cursor: pointer
+    text-decoration: none
     .b2c-toggle-cart-amount
         font-size: 14px
 
 .b2c-search
     padding: .5rem    
-    // width: 100% 
-    height: 100%  
     form
         position: relative
         input 
@@ -143,7 +141,7 @@ body
 .b2c-list-product
     padding: 1rem    
     display: grid    
-    grid-template-columns: repeat(auto-fill, 250px)
+    grid-template-columns: repeat(auto-fill, 300px)
     grid-gap: 1rem
     justify-content: center
     grid-auto-rows: 1fr  
@@ -156,14 +154,19 @@ body
         padding: 1.5rem 1rem 1rem
         background: $white
         position: relative
-        
-        .b2c-item-image
-            margin-bottom: 1rem
-            span
-                font-size: 6rem
-        .b2c-item-type
-            color: $gray-dark
-            margin-bottom: 1rem
+        a
+            color: $black
+            cursor: pointer
+            &:active
+                text-decoration: none
+
+            .b2c-item-image
+                margin-bottom: 1rem
+                span
+                    font-size: 6rem
+            .b2c-item-type
+                color: $gray-dark
+                margin-bottom: 1rem
 
 .b2c-product-total-value
     text-align: right
@@ -216,3 +219,83 @@ body
             &:hover
                 color: $main
                 background-color: transparent
+
+.b2c-product-container
+    padding: 1rem
+    display: flex
+    align-items: center
+    flex-direction: column
+    justify-content: center
+    .b2c-product
+        
+        border: 1px solid $gray-light
+        margin: .5rem
+        padding: 1.5rem 1rem 1rem
+        background: $white
+        .b2c-product-wrapper
+            display: flex
+            flex-direction: column
+            flex-wrap: wrap
+            justify-content: space-between
+            .b2c-product-image
+                text-align: center
+                margin-bottom: 1rem
+                border: 1px solid $gray-light
+                padding: 1rem
+                span
+                    font-size: 10rem
+                    .b2c-product-type
+                        color: $gray-dark
+                        margin-bottom: 1rem
+            .b2c-product-content
+                position: relative
+                min-width: 250px
+                padding-bottom: 2rem
+                .b2c-product-tax-value
+                    margin: 2rem 0 1rem
+                    text-align: right
+                    font-size: 0.8rem
+                    color: $gray-medium
+                .b2c-product-type
+                    color: $gray-dark
+.b2c-bread-crumbs
+    text-align: left
+    padding: .5rem
+    background: $gray-white
+    margin-bottom: 1rem
+    a
+        color: $blue
+        text-decoration: none
+        
+        &:after
+            content: ' / '
+            color: $black
+.b2c-title
+    margin: 0
+    padding: .3rem .5rem
+    font-size: 1.5rem
+    text-transform: capitalize
+    color: $gray-dark
+
+.b2c-cart-container 
+    margin: 1rem
+    border: 1px solid $gray-light
+    background: $white
+    padding: 1rem
+
+    .b2c-cart        
+        .b2c-cart-product        
+            margin: 0 auto 1rem
+            padding: .5rem 0 1rem            
+            display: grid    
+            grid-template-columns: 1fr 100px 60px 30px
+            grid-gap: 1rem
+            justify-content: center
+            grid-auto-rows: 1fr  
+            color: $gray-dark
+            &:not(:last-child)
+                border-bottom: 1px solid $gray-light
+            .b2c-cart-product-name
+                text-align: left
+
+        

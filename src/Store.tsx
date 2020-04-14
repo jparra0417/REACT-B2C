@@ -12,7 +12,6 @@ const initialState: IState = {
     listProduct: [],
     taxValue: 0,
     totalValue: 0,
-    active: false,
     amount: 0,
   },
   lookUp: {
@@ -116,8 +115,6 @@ const reducer = (state: IState, action: IAction) => {
       };
     case EAction.MODIFY_PAGER_PAGE:
       return { ...state, pager: { ...state.pager, page: action.payload } };
-    case EAction.MODIFY_CART_ACTIVE:
-      return { ...state, cart: { ...state.cart, active: action.payload } };
     default:
       return state;
   }

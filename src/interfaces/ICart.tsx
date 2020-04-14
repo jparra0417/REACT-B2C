@@ -4,6 +4,5 @@ export default interface ICart {
   listProduct: IProduct[];
   taxValue: number;
   totalValue: number;
-  active : boolean;
   amount: number
 }

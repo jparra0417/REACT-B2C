@@ -8,7 +8,7 @@ import { Store } from "../Store";
 import IState from "../interfaces/IState";
 
 const Product = () => {
-  const {state} = useContext<IState | any >(Store);
+  const { state } = useContext<IState | any>(Store);
   /**  params */
   let { id } = useParams();
 
@@ -22,9 +22,11 @@ const Product = () => {
         const totalListProduct: IProduct[] = JSON.parse(
           localStorage.getItem(EStorage.B2C_LIST_PRODUCT)
         );
-        let listProduct: IProduct[] = totalListProduct.filter((product: IProduct) => {
-          return product.item.id === id;
-        });
+        let listProduct: IProduct[] = totalListProduct.filter(
+          (product: IProduct) => {
+            return product.item.id === id;
+          }
+        );
         if (listProduct && listProduct.length) setProduct(listProduct[0]);
         setReady(true);
       }
@@ -33,28 +35,28 @@ const Product = () => {
   if (ready)
     if (product)
       return (
-        <div className="b2c-product">
-          <BreadCrumb
-            value={[
-              { text: "Products", to: "/" },
-              { text: product.item.name },
-            ]}
-          />
-          <div className="b2c-product-urlimage">
-            <img src={product.item.urlImage} alt={product.item.name} />
+        <div className="b2c-product-container">
+          <div className="b2c-product">
+            <BreadCrumb
+              value={[
+                { text: "Products", to: "/" },
+                { text: product.item.name },
+              ]}
+            />
+            <div className="b2c-product-wrapper">
+              <div className="b2c-product-image">
+                <span className={`fa fa-${product.item.urlImage}`}></span>
+              </div>
+              <div className="b2c-product-content">
+                <div className="b2c-product-name">{product.item.name}</div>
+                <div className="b2c-product-type">{product.item.type}</div>
+                <div className="b2c-product-tax-value">
+                  Tax : {product.item.taxValue.toLocaleString(state.lang)}
+                </div>                            
+                <ProductAdd product={product} />
+              </div>
+            </div>
           </div>
-          <div className="b2c-product-name">{product.item.name}</div>
-          <div className="b2c-product-type">{product.item.type}</div>
-          <div className="b2c-product-tax-value">
-            {product.item.taxValue.toLocaleString(state.lang)}
-          </div>
-          <div className="b2c-product-unit-value">
-            {product.item.unitValue.toLocaleString(state.lang)}
-          </div>
-          <div className="b2c-product-total-value">
-            {product.item.totalValue.toLocaleString(state.lang)}
-          </div>
-          <ProductAdd product={product} />
         </div>
       );
     else return <Redirect to="/" />;

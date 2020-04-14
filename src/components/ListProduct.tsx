@@ -9,6 +9,7 @@ import IProduct from "../interfaces/IProduct";
 import ProductAdd from "./ProductAdd";
 import { EAction } from "../enums/EAction";
 import Pager from "./Pager";
+import { Link } from "react-router-dom";
 
 const ListProduct = (props) => {
   /** global */
@@ -117,30 +118,29 @@ const ListProduct = (props) => {
   }, [state.pager.limit, state.pager.page, filteredListProduct]);
 
   if (ready)
-    return (
-      <>
-        <div className="b2c-list-product">
-          {listProduct.length ? (
-            listProduct.map((product: IProduct) => {
+    if (listProduct.length)
+      return (
+        <>
+          <div className="b2c-list-product">
+            {listProduct.map((product: IProduct) => {
               return (
                 <div className="b2c-item" key={product.item.id}>
-                  <div className="b2c-item-image">
-                    <span className={`fa fa-${product.item.urlImage}`}></span>
-                  </div>
+                  <Link to={`/product/${product.item.id}`}>
+                    <div className="b2c-item-image">
+                      <span className={`fa fa-${product.item.urlImage}`}></span>
+                    </div>
+                  </Link>
                   <div className="b2c-item-name">{product.item.name}</div>
                   <div className="b2c-item-type">{product.item.type}</div>
                   <ProductAdd product={product} />
-                  {/* <Link to={`/product/${product.item.id}`}>Check</Link> */}
                 </div>
               );
-            })
-          ) : (
-            <div className="b2c-no-results">Not found</div>
-          )}
-        </div>
-        <Pager />
-      </>
-    );
+            })}
+          </div>
+          <Pager />
+        </>
+      );
+    else return <div className="b2c-no-results">Not found</div>;
   else return <div>Cargando...</div>;
 };
 

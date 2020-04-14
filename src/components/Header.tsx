@@ -1,22 +1,24 @@
 import React from "react";
-import Search from './Search'
-import ToggleCart from './ToggleCart'
-// import Pager from "./Pager";
+import Search from "./Search";
+import ToggleCart from "./ToggleCart";
 import Logo from "./Logo";
+import { useLocation } from "react-router-dom";
+import Title from "./Title";
 
+const Header = () => {
+  const location = useLocation();
+  console.log("location ", location, typeof location);
+  return (
+    <div className="b2c-header">
+      <Logo />
+      {location.pathname === "/" ? (
+        <Search />
+      ) : (
+        <Title path={location.pathname} />
+      )}
+      <ToggleCart />
+    </div>
+  );
+};
 
-const Header = () => {   
-
-    return (
-        <div className="b2c-header">
-            <Logo />
-            <Search/>
-            {/* <Pager /> */}
-            <ToggleCart />            
-        </div>
-    )
-}
-
-export default Header
-
-
+export default Header;
