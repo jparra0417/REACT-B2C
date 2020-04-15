@@ -149,28 +149,54 @@ body
 
     
     .b2c-item
-        border: 1px solid $gray-light
-        margin: .5rem
+        border: 1px solid $gray-light        
         padding: 1.5rem 1rem 1rem
         background: $white
         position: relative
         a
             color: $black
             cursor: pointer
-            &:active
+            &:hover
                 text-decoration: none
 
             .b2c-item-image
                 margin-bottom: 1rem
                 span
                     font-size: 6rem
-            .b2c-item-type
-                color: $gray-dark
-                margin-bottom: 1rem
-
-.b2c-product-total-value
-    text-align: right
+        .b2c-item-type
+            color: $gray-dark
+            margin-bottom: 1rem
+        .b2c-product-buttons
+            left: 1rem
+            bottom: 1rem
+            right: 1rem
+.b2c-product-total-container
+    width: 100%
+    overflow: hidden  
     margin-bottom: 3.5rem
+.b2c-product-added
+    a
+        float: left
+        vertical-align: middle
+        transform: scale(0)
+        font-size: 1rem !important
+        margin-top: 0.4rem
+        border: 1px solid $green !important
+        padding: .1rem .3rem
+        border-radius: .5rem
+        color: $green !important
+        transition: .5s
+        text-decoration: none
+        opacity: 0
+    &.active,
+    &:hover    
+        a
+            opacity: 1
+            transform: scale(1)
+    
+        
+.b2c-product-total-value
+    float: right    
     .value
         font-size: 2rem
         line-height: 1
@@ -179,46 +205,47 @@ body
     overflow: hidden
     position: absolute
     bottom: 1rem
-    left: 1rem
-    right: 1rem
+    left: 0
+    right: 0
     
-    .b2c-product-amount-buttons
-        float: left
-        button
-            margin: 0
-            outline: none
-            line-height: normal
-            border: 1px solid $gray-light
-            box-shadow: none transparent inset
-            background-color: transparent
-            font-size: 1rem
-            padding: .5rem
-            border-radius: .3rem
-            color: $gray-dark
-            vertical-align: middle
-            cursor: pointer
-        .b2c-product-amount
-            margin: 0 .3rem            
+.b2c-product-amount-buttons
+    float: left
+    text-align: left
+    button
+        margin: 0
+        outline: none
+        line-height: normal
+        border: 1px solid $gray-light
+        box-shadow: none transparent inset
+        background-color: transparent
+        font-size: 1rem
+        padding: .5rem
+        border-radius: .3rem
+        color: $gray-dark
+        vertical-align: middle
+        cursor: pointer
+    .b2c-product-amount
+        margin: 0 .3rem            
 
-    .b2c-product-add-button
-        float: right
-        button
-            margin: 0
-            outline: none
-            line-height: normal
-            border: 1px solid $main
-            box-shadow: none transparent inset
-            background-color: $main
-            font-size: 1rem
-            padding: .5rem
-            border-radius: .3rem
-            color: $white
-            vertical-align: middle
-            cursor: pointer
-            transition: .3s
-            &:hover
-                color: $main
-                background-color: transparent
+.b2c-product-add-button
+    float: right
+    button
+        margin: 0
+        outline: none
+        line-height: normal
+        border: 1px solid $main
+        box-shadow: none transparent inset
+        background-color: $main
+        font-size: 1rem
+        padding: .5rem
+        border-radius: .3rem
+        color: $white
+        vertical-align: middle
+        cursor: pointer
+        transition: .3s
+        &:hover
+            color: $main
+            background-color: transparent
 
 .b2c-product-container
     padding: 1rem
@@ -283,19 +310,75 @@ body
     background: $white
     padding: 1rem
 
-    .b2c-cart        
-        .b2c-cart-product        
-            margin: 0 auto 1rem
-            padding: .5rem 0 1rem            
-            display: grid    
-            grid-template-columns: 1fr 100px 60px 30px
-            grid-gap: 1rem
-            justify-content: center
-            grid-auto-rows: 1fr  
-            color: $gray-dark
-            &:not(:last-child)
-                border-bottom: 1px solid $gray-light
-            .b2c-cart-product-name
-                text-align: left
-
+.b2c-cart    
+    display: flex
+    flex-direction: column
+          
+.b2c-cart-product        
+    margin: 0 auto 1rem
+    padding: .5rem 0 1rem            
+    display: grid    
+    grid-template-columns: 1fr 100px 80px 30px
+    grid-gap: 1rem
+    justify-content: center
+    grid-auto-rows: 1fr  
+    color: $gray-dark
+    &:not(:last-child)
+        border-bottom: 1px solid $gray-light
+    .b2c-cart-product-name
+        text-align: left
+    .b2c-cart-product-total
+        text-align: right
         
+    .b2c-cart-product-remove    
+        button
+            margin: 0
+            outline: none
+            line-height: normal
+            border: 1px solid $red
+            box-shadow: none transparent inset
+            background-color: transparent
+            font-size: 1rem
+            padding: .5rem
+            border-radius: .3rem
+            color: $red
+            vertical-align: middle
+            cursor: pointer
+            transition: .3s
+            &:hover
+                background: $red
+                color: $white
+    .b2c-cart-title
+        text-align: left
+        font-weight: bold
+        
+.b2c-cart-actions
+    width: 100%
+    padding-bottom: 2rem
+    margin-bottom: 2rem
+    border-bottom: 1px solid $gray-light
+    border-right: 0
+    margin-right: 0
+    button
+        margin: 0
+        outline: none
+        line-height: normal
+        border: 1px solid $blue
+        box-shadow: none transparent inset
+        background-color: $blue
+        font-size: 1rem
+        padding: .5rem 1rem 
+        border-radius: .3rem
+        color: $white
+        vertical-align: middle
+        cursor: pointer
+        width: 30%
+     
+     
+
+.b2c-cart-total-value
+    font-size: 2rem
+    font-weight: bold
+    color: $gray-dark
+    margin-bottom: 1rem
+

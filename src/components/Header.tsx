@@ -7,7 +7,6 @@ import Title from "./Title";
 
 const Header = () => {
   const location = useLocation();
-  console.log("location ", location, typeof location);
   return (
     <div className="b2c-header">
       <Logo />

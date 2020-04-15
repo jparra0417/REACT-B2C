@@ -1,14 +1,16 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import IProduct from "../interfaces/IProduct";
 import IState from "../interfaces/IState";
 import { Store } from "../Store";
 import HocProduct from "./HocProduct";
+import { Link } from "react-router-dom";
 
 const ProductAdd = (props) => {
   /** global */
   const { state, dispatch } = useContext<IState | any>(Store);
   /** local */
   const [product, setProduct] = useState<IProduct>(props.product);
+  const badge = useRef<HTMLDivElement>();
 
   useEffect(() => {}, [state.lang]);
 
@@ -31,6 +33,13 @@ const ProductAdd = (props) => {
     console.log("props", props);
     props.addProduct(product, product.amount, dispatch);
     reset();
+    badge.current.classList.add("active");
+    if (badge && badge.current && badge.current.classList) {
+      setTimeout(() => {
+        if (badge && badge.current && badge.current.classList)
+          badge.current.classList.remove("active");
+      }, 2500);
+    }
   };
 
   const increment = () => {
@@ -49,11 +58,18 @@ const ProductAdd = (props) => {
 
   return (
     <>
-      <div className="b2c-product-total-value">
-        <sup>$</sup>
-        <span className="value">
-          {product.totalValue.toLocaleString(state.lang)}
-        </span>
+      <div className="b2c-product-total-container">
+        <div className="b2c-product-added" ref={badge}>
+          <Link to="/cart">
+            Added <span className="fa fa-check-circle"></span>
+          </Link>
+        </div>
+        <div className="b2c-product-total-value">
+          <sup>$</sup>
+          <span className="value">
+            {product.totalValue.toLocaleString(state.lang)}
+          </span>
+        </div>
       </div>
       <div className="b2c-product-buttons">
         <div className="b2c-product-amount-buttons">
