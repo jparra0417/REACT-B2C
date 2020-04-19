@@ -4,6 +4,8 @@ import IState from "../interfaces/IState";
 import { Store } from "../Store";
 import HocProduct from "./HocProduct";
 import { Link } from "react-router-dom";
+import UtilString from "../utils/UtilString";
+import UtilNumber from "../utils/UtilNumber";
 
 const ProductAdd = (props) => {
   /** global */
@@ -52,7 +54,7 @@ const ProductAdd = (props) => {
     return {
       ...prevProduct,
       amount: amount,
-      totalValue: amount * prevProduct.item.totalValue,
+      totalValue: UtilNumber.setPrecision(amount * prevProduct.item.totalValue),
     };
   };
 
@@ -67,7 +69,7 @@ const ProductAdd = (props) => {
         <div className="b2c-product-total-value">
           <sup>$</sup>
           <span className="value">
-            {product.totalValue.toLocaleString(state.lang)}
+            {UtilString.printNumber(product.totalValue, state.lang)}
           </span>
         </div>
       </div>

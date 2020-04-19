@@ -197,10 +197,10 @@ body
         
 .b2c-product-total-value
     float: right    
-    .value
-        font-size: 2rem
-        line-height: 1
-        margin-left: .2rem
+.value
+    font-size: 2rem
+    line-height: 1
+    margin-left: .2rem
 .b2c-product-buttons
     overflow: hidden
     position: absolute
@@ -381,4 +381,96 @@ body
     font-weight: bold
     color: $gray-dark
     margin-bottom: 1rem
+
+.b2c-cashier
+    text-align: center
+    display: grid
+    grid-template-columns: 80px 1fr 80px
+    max-width: 350px
+    grid-template-rows: 1fr
+    align-items: center
+    margin: 0 auto
+
+.b2c-cashier-cash    
+    display: inline-block
+    cursor: pointer
+    margin: .2rem
+    background: $green-light
+    color: $white
+    border: 1px solid $green
+    padding: 5px 5px
+    position: relative
+    text-align: center
+    width: 45px
+    height: 28px
+    font-weight: 500
+    &:after
+        content: ''
+        position: absolute
+        top: 3px
+        left: 3px
+        right: 3px
+        bottom: 3px
+        border: 1px solid $green
+    
+    &.b2c-coin
+        font-weight: normal
+        color: $gray-dark
+        border: 1px solid $gray-medium
+        background: $gray-light
+        border-radius: 50%
+        width: 28px
+        height: 28px
+        position: relative
+        &:after
+            border: 1px solid $gray-medium
+            border-radius: 50%
+        &.b2c-cents            
+            &::before
+                content: '\00A2'
+                font-size: .7rem
+                line-height: 1
+                bottom: 0.25rem
+                left: 0
+                right: 0
+                position: absolute
+.b2c-cashier-payment 
+    margin-bottom: 3rem
+    
+.b2c-invoice 
+    padding: 1rem 
+    max-width: 300px
+    border: 1px solid $gray-light
+    margin: 0 auto
+    .b2c-invoice-logo
+        font-size: 8rem
+        color: $green
+        line-height: 1
+        margin-bottom: 1.5rem
+        // border-bottom: 1px solid $gray-light
+        padding-bottom: 1rem
+    .b2c-invoice-two
+        // padding: 0 1rem .4rem
+        display: grid
+        grid-template-columns: 40% 60%
+        grid-template-rows: auto
+        // border-bottom: 1px solid $gray-light
+        // margin-bottom: .4rem
+    
+    .b2c-invoice-three
+        // padding: 0 1rem .4rem
+        display: grid
+        grid-template-columns: 60% auto 30%
+        grid-template-rows: auto
+        // border-bottom: 1px solid $gray-light
+        // margin-bottom: .4rem
+        
+    .b2c-invoice-label
+        text-align: left
+        font-size: .9rem
+        color: $gray-dark
+    .b2c-invoice-value
+        text-align: right
+        color: $black
+        font-size: .9rem
 

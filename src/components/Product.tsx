@@ -6,6 +6,7 @@ import BreadCrumb from "./BreadCrumb";
 import ProductAdd from "./ProductAdd";
 import { Store } from "../Store";
 import IState from "../interfaces/IState";
+import UtilString from "../utils/UtilString";
 
 const Product = () => {
   const { state } = useContext<IState | any>(Store);
@@ -51,7 +52,7 @@ const Product = () => {
                 <div className="b2c-product-name">{product.item.name}</div>
                 <div className="b2c-product-type">{product.item.type}</div>
                 <div className="b2c-product-tax-value">
-                  Tax : {product.item.taxValue.toLocaleString(state.lang)}
+                  Tax : {UtilString.printNumber(product.item.taxValue, state.lang)}
                 </div>                            
                 <ProductAdd product={product} />
               </div>

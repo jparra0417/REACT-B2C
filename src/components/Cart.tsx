@@ -4,35 +4,48 @@ import { Store } from "../Store";
 import IProduct from "../interfaces/IProduct";
 import HocProduct from "./HocProduct";
 import BreadCrumb from "./BreadCrumb";
+import Cashier from "./Cashier";
 
 const Cart = (props) => {
   /** global */
   const { state, dispatch } = useContext<IState | any>(Store);
 
-  useEffect(() => {}, [state.cart, state.lang]);
+
+  useEffect(() => {
+    // console.log("Changed cart", state.cart)
+  }, [state.cart, state.lang]);
 
   const removeAmount = (product: IProduct) => {
     if (product.amount > 1) props.removeProduct(product, 1, dispatch);
   };
+  
 
   if (!state.cart.listProduct || !state.cart.listProduct.length)
     return (
       <div className="b2c-cart-container">
         <BreadCrumb value={[{ text: "Products", to: "/" }, { text: "Cart" }]} />
-        <div className="b2c-cart-not-found">There is not any product added </div>
+        <div className="b2c-cart-not-found">
+          There is not any product added...
+        </div>
       </div>
     );
   return (
     <div className="b2c-cart-container">
-      <BreadCrumb value={[{ text: "Products", to: "/" }, { text: "Cart" }]} />
+      <BreadCrumb
+        value={[
+          { text: "Products", to: "/" },
+          { text: "Cart" },
+        ]}
+      />
       <div className="b2c-cart">
         <div className="b2c-cart-actions">
           <div className="b2c-cart-total-value">
-            Total $ {state.cart.totalValue.toLocaleString(state.lang)}
+            Total $
+            {state.cart.totalValue.toLocaleString(state.lang, {
+              minimumFractionDigits: 1,
+            })}
           </div>
-          <button type="button">
-            Go to cashier
-          </button>
+          <Cashier />
         </div>
         <div className="b2c-cart-list-products">
           <div className="b2c-cart-product">
@@ -58,7 +71,9 @@ const Cart = (props) => {
                   </button>
                 </div>
                 <div className="b2c-cart-product-total">
-                  {product.totalValue.toLocaleString(state.lang)}
+                  {product.totalValue.toLocaleString(state.lang, {
+                    minimumFractionDigits: 1,
+                  })}
                 </div>
                 <div className="b2c-cart-product-remove">
                   <button

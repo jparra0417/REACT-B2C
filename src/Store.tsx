@@ -5,6 +5,7 @@ import { EAction } from "./enums/EAction";
 import { ESort } from "./enums/ESort";
 import ICart from "./interfaces/ICart";
 import IProduct from "./interfaces/IProduct";
+import UtilNumber from "./utils/UtilNumber";
 
 /** initial state of the store */
 const initialState: IState = {
@@ -43,13 +44,16 @@ const addProduct = (cart: ICart, product: IProduct): ICart => {
 
   if (filteredProduct && filteredProduct.length) {
     filteredProduct[0].amount += product.amount;
-    filteredProduct[0].totalValue =
-      product.item.totalValue * filteredProduct[0].amount;
+    filteredProduct[0].totalValue = UtilNumber.setPrecision(
+      product.item.totalValue * filteredProduct[0].amount
+    );
   } else
     listProduct.push({
       ...product,
       amount: product.amount,
-      totalValue: product.item.totalValue * product.amount,
+      totalValue: UtilNumber.setPrecision(
+        product.item.totalValue * product.amount
+      ),
     });
 
   return calculateCart(cart, listProduct);
@@ -65,8 +69,9 @@ const removeProduct = (cart: ICart, product: IProduct): ICart => {
     filteredProduct[0].amount -= product.amount;
     // if > 0 recalculate the total value
     if (filteredProduct[0].amount > 0)
-      filteredProduct[0].totalValue =
-        product.item.totalValue * filteredProduct[0].amount;
+      filteredProduct[0].totalValue = UtilNumber.setPrecision(
+        product.item.totalValue * filteredProduct[0].amount
+      );
     // otherwise, remove from the list
     else
       listProduct = listProduct.filter(
@@ -82,7 +87,7 @@ const calculateCart = (cart: ICart, listProduct: IProduct[]): ICart => {
   let totalValue = 0;
   listProduct.forEach((p: IProduct) => {
     amount += p.amount;
-    totalValue += p.totalValue;
+    UtilNumber.setPrecision((totalValue += p.totalValue));
   });
 
   return {
@@ -113,6 +118,19 @@ const reducer = (state: IState, action: IAction) => {
         ...state,
         pager: { ...state.pager, limit: action.payload, page: 0 },
       };
+
+    case EAction.SET_INVOICE:
+      return {
+        ...state,
+        invoice: { ...action.payload },
+      };
+
+    case EAction.RESET_CART:
+      return {
+        ...state,
+        cart: { ...initialState.cart, listProduct: [] },
+      };
+
     case EAction.MODIFY_PAGER_PAGE:
       return { ...state, pager: { ...state.pager, page: action.payload } };
     default:

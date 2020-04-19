@@ -14,7 +14,7 @@ const ToggleCart = () => {
     <Link className="b2c-toggle-cart" to="/cart">
       <i className="fa fa-shopping-cart"></i>
       <div className="b2c-toggle-cart-amount">
-        {state.cart.amount.toLocaleString(state.lang)}
+        {state.cart.amount}
       </div>
     </Link>
   );
