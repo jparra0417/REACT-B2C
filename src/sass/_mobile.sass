@@ -9,7 +9,14 @@ body
     margin: 0
     color: $black
     background: $gray-white
-       
+
+.no-text-decoration
+    text-decoration: none
+
+h2,
+h3
+    color: $gray-dark
+
 .b2c-header
     display: flex
     flex-direction: row
@@ -41,17 +48,47 @@ body
     border: 0
     margin: 0
     padding: 0
+    border-left: 1px solid $gray-light
     outline: none
     line-height: normal    
     box-shadow: none transparent inset
-    background-color: $green
+    background-color: transparent
     font-size: 1rem
     color: $white
     padding: .3rem 1rem
     cursor: pointer
     text-decoration: none
+    color: $gray-medium
+    position: relative
+
+    &:before
+        content: ''
+        position: absolute
+        top: 0
+        bottom: 0
+        left: 0
+        right: 0
+        z-index: -1
+        background: $green
+        transition: .3s
+        transform: scale(0)
+    &:hover
+        color: $white                    
+    &:hover:before
+        transform: scale(1)   
+
+
+
     .b2c-toggle-cart-amount
         font-size: 14px
+        width: 20px
+        height: 20px
+        border-radius: 50%
+        &.cart-amount-elements
+            background: $green
+            color: $white
+
+        
 
 .b2c-search
     padding: .5rem    
@@ -316,21 +353,25 @@ body
           
 .b2c-cart-product        
     margin: 0 auto 1rem
-    padding: .5rem 0 1rem            
-    display: grid    
-    grid-template-columns: 1fr 100px 80px 30px
-    grid-gap: 1rem
-    justify-content: center
-    grid-auto-rows: 1fr  
+    padding: .5rem 0 1rem    
     color: $gray-dark
+    overflow: hidden
+
     &:not(:last-child)
         border-bottom: 1px solid $gray-light
     .b2c-cart-product-name
         text-align: left
     .b2c-cart-product-total
         text-align: right
+        float: right
+    .b2c-product-amount-buttons        
+        text-align: center
+        float: unset
+        display: inline
+        overflow: hidden
         
     .b2c-cart-product-remove    
+        float: left
         button
             margin: 0
             outline: none
@@ -351,12 +392,22 @@ body
     .b2c-cart-title
         text-align: left
         font-weight: bold
+        &:nth-child(1)
+            float: left
+        &:nth-child(2)
+            text-align: center
+            display: inline-block
+        &:nth-child(3)
+            float: right
+        &:nth-child(4)
+            display: none
+            
         
 .b2c-cart-actions
     width: 100%
     padding-bottom: 2rem
     margin-bottom: 2rem
-    border-bottom: 1px solid $gray-light
+    // border-bottom: 1px solid $gray-light
     border-right: 0
     margin-right: 0
     button
@@ -436,7 +487,7 @@ body
                 position: absolute
 .b2c-cashier-payment 
     margin-bottom: 3rem
-    
+.b2c-change,    
 .b2c-invoice 
     padding: 1rem 
     max-width: 300px

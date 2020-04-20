@@ -40,7 +40,7 @@ const Product = () => {
           <div className="b2c-product">
             <BreadCrumb
               value={[
-                { text: "Products", to: "/" },
+                { text: "Home", to: "/" },
                 { text: product.item.name },
               ]}
             />

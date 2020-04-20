@@ -23,7 +23,7 @@ const Cart = (props) => {
   if (!state.cart.listProduct || !state.cart.listProduct.length)
     return (
       <div className="b2c-cart-container">
-        <BreadCrumb value={[{ text: "Products", to: "/" }, { text: "Cart" }]} />
+        <BreadCrumb value={[{ text: "Home", to: "/" }, { text: "Cart" }]} />
         <div className="b2c-cart-not-found">
           There is not any product added...
         </div>
@@ -33,7 +33,7 @@ const Cart = (props) => {
     <div className="b2c-cart-container">
       <BreadCrumb
         value={[
-          { text: "Products", to: "/" },
+          { text: "Home", to: "/" },
           { text: "Cart" },
         ]}
       />

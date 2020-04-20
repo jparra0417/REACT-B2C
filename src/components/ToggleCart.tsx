@@ -13,7 +13,11 @@ const ToggleCart = () => {
   return (
     <Link className="b2c-toggle-cart" to="/cart">
       <i className="fa fa-shopping-cart"></i>
-      <div className="b2c-toggle-cart-amount">
+      <div
+        className={`b2c-toggle-cart-amount ${
+          state.cart.amount > 0 ? "cart-amount-elements" : ""
+        }`}
+      >
         {state.cart.amount}
       </div>
     </Link>

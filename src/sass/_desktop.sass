@@ -6,13 +6,30 @@
                 .b2c-product-content
                     margin-left: 1rem
     .b2c-cart    
+        display: inline-flex
         flex-direction: row
 
+    .b2c-cart-product  
+        display: grid    
+        grid-template-columns: 1fr 100px 100px 35px
+        grid-gap: 1rem
+        justify-content: center
+        grid-auto-rows: 1fr  
+
     .b2c-cart-actions
-        width: 40%
+        padding-right: 1rem
         border-bottom: 0
         border-right: 1px solid $gray-light
         margin-right: 1rem
     
+    .b2c-invoice-wrapper
+        display: flex
+        flex-direction: row
+        justify-content: center
+
+    .b2c-change,    
+    .b2c-invoice 
+        margin: 0 .5rem
+        width: 300px
     
 

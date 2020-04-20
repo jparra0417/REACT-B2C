@@ -19,7 +19,7 @@ const Invoice = () => {
     return (
       <div className="b2c-cart-container">
         <BreadCrumb
-          value={[{ text: "Products", to: "/" }, { text: "Invoice" }]}
+          value={[{ text: "Home", to: "/" }, { text: "Invoice" }]}
         />
         <div className="b2c-cart-not-found">There is not any invoice...</div>
       </div>
@@ -28,17 +28,23 @@ const Invoice = () => {
   return (
     <div className="b2c-cart-container">
       <BreadCrumb
-        value={[{ text: "Products", to: "/" }, { text: "Invoice" }]}
+        value={[{ text: "Home", to: "/" }, { text: "Invoice" }]}
       />
-      <div className="b2c-cart-not-found">
-        <h2>Change</h2>
-        <Change changeCash={state.invoice.changeCash} />
-        <h2>Receipt</h2>
-        <Receipt invoice={state.invoice}></Receipt>
-        <p>
-          <Link to="/">Continue buying...</Link>
-        </p>
+
+      <h2>Thanks for your purchase!</h2>
+      <div className="b2c-invoice-wrapper">
+        <section>
+          <h3>Receipt</h3>
+          <Receipt invoice={state.invoice}></Receipt>
+        </section>
+        <section>
+          <h3>Change</h3>
+          <Change changeCash={state.invoice.changeCash} />
+        </section>
       </div>
+      <p>
+        <Link to="/">Continue buying...</Link>
+      </p>
     </div>
   );
 };
