@@ -21,15 +21,17 @@ const ListProduct = (props) => {
   );
   const [listProduct, setListProduct] = useState<IProduct[]>([]);
   const [ready, setReady] = useState<boolean>(false);
+  const [alert, setAlert] = useState<boolean>(false);
 
   /** use effect when the ready  */
   useEffect(() => {
     setReady(false);
+    setAlert(false);
     // function get total list Item
     const getTotalListProduct = (): IProduct[] => {
       let _filteredListProduct: IProduct[] = [];
-      if (!localStorage.getItem(EStorage.B2C_LIST_PRODUCT)) {
-        alert("Hi, this is an experimental application. The products are fake. So make yourself at home. :D");
+      if (!localStorage.getItem(EStorage.B2C_LIST_PRODUCT)) {        
+        setAlert(true);
         const img = [
           "viadeo-square",
           "car",
@@ -122,6 +124,14 @@ const ListProduct = (props) => {
     if (listProduct.length)
       return (
         <>
+          {
+          alert ?
+            <div className="b2c-alert">
+              Welcome, this is an experimental application. The products are fake. So, make yourself at home.
+            </div>
+          : ''
+          }
+
           <div className="b2c-list-product">
             {listProduct.map((product: IProduct) => {
               return (
