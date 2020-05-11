@@ -29,7 +29,7 @@ const ListProduct = (props) => {
     const getTotalListProduct = (): IProduct[] => {
       let _filteredListProduct: IProduct[] = [];
       if (!localStorage.getItem(EStorage.B2C_LIST_PRODUCT)) {
-        alert("Hi, this is an experimental application. The products are fake. So feel free to buy whatever you want.");
+        alert("Hi, this is an experimental application. The products are fake. So make yourself at home. :D");
         const img = [
           "viadeo-square",
           "car",
