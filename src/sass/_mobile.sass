@@ -124,8 +124,9 @@ h3
             color: $gray-medium
             
 .b2c-content
-    margin: 50px 0
+    margin: 50px 0 0
     overflow: hidden
+    min-height: calc( 100vh - 100px )
 .b2c-controls
     height: 50px
     display: flex
@@ -134,11 +135,22 @@ h3
     border-top: 1px solid $gray-light
     background: $gray-white
     z-index: 2
-    position: fixed
-    bottom: 0
-    left: 0
-    right: 0
-    
+    // position: fixed
+    // bottom: 0
+    // left: 0
+    // right: 0
+.b2c-footer
+    // margin-top: 1rem    
+    height: 50px
+    text-align: center    
+    border-top: 1px solid $gray-light
+    background: $gray-white
+    z-index: 2
+    color: $gray-dark
+    padding: .5rem 0
+    font-size: .9rem
+    a
+        color: $gray-dark    
 
 .b2c-pager
     color: $gray-medium
